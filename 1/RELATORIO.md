@@ -178,3 +178,41 @@ Pergunta:
 Resposta:
 
 O tempo total ficou perto de 3 segundos. Porque temos 4 threads para atender 10 clientes. No primeiro segundo, 4 são atendidos; no segundo, mais 4; e no terceiro, os últimos 2. As mesmas threads são reutilizadas, evitando criar uma thread nova para cada cliente.
+
+## Parte E
+
+```java
+import java.util.concurrent.Executors;
+
+public class AtendimentoVirtual {
+    public static void main(String[] args) {
+        int total = 100_000;
+
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (int i = 0; i < total; i++) {
+                executor.submit(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                });
+            }
+        }
+    }
+}
+```
+
+Saída:
+
+```text
+O programa foi executado sem erros e não exibiu saída no terminal.
+```
+
+Pergunta:
+
+> Uma Virtual Thread é uma thread de Sistema Operacional? Se não, o que ela é?
+
+Resposta:
+
+Não. Uma Virtual Thread é criada e controlada pela JVM. Ela usa poucas threads reais do sistema operacional para executar várias tarefas, por isso é mais leve e permite criar muitas threads.
