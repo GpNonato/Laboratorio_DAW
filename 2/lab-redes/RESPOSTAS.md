@@ -151,3 +151,59 @@ Cliente 1:
 Cliente 2:
 
 ![Cliente 2 Multicast em Python](evidencias/multicast/multicast-python-cliente-2.png)
+
+## Parte D - WebSocket
+
+### Pergunta 1
+
+O que muda na conexão depois que o handshake do WebSocket é concluído?
+
+Resposta:
+
+Depois do handshake, a conexão deixa de funcionar como uma requisição HTTP comum. Ela fica aberta e o servidor e o cliente podem enviar mensagens um para o outro a qualquer momento.
+
+### Pergunta 2
+
+Qual é a diferença entre o mural com WebSocket e o aviso com Multicast?
+
+Resposta:
+
+No WebSocket, o servidor sabe quais clientes estão conectados e envia a mensagem para cada um deles. No Multicast, o servidor envia uma mensagem para o grupo e todos que fazem parte desse grupo recebem o aviso.
+
+### Pergunta 3
+
+Por que o WebSocket é mais adequado que TCP cru para o mural em tempo real?
+
+Resposta:
+
+O WebSocket já tem uma forma padrão de trocar mensagens e funciona bem com navegadores. Com TCP cru, seria preciso criar a forma de enviar e organizar as mensagens. O WebSocket facilita criar um mural com vários clientes conectados.
+
+### Evidências de teste
+
+#### Java
+
+Servidor:
+
+![Servidor WebSocket em Java](evidencias/websocket/websocket-java-servidor.png)
+
+Cliente 1:
+
+![Cliente 1 WebSocket em Java](evidencias/websocket/websocket-java-cliente-1.png)
+
+Cliente 2:
+
+![Cliente 2 WebSocket em Java](evidencias/websocket/websocket-java-cliente-2.png)
+
+#### Python
+
+Servidor:
+
+![Servidor WebSocket em Python](evidencias/websocket/websocket-python-servidor.png)
+
+Cliente 1:
+
+![Cliente 1 WebSocket em Python](evidencias/websocket/websocket-python-cliente-1.png)
+
+Cliente 2:
+
+![Cliente 2 WebSocket em Python](evidencias/websocket/websocket-python-cliente-2.png)
