@@ -95,3 +95,59 @@ Servidor:
 Cliente:
 
 ![Cliente UDP em Python](evidencias/udp/udp-python-cliente.png)
+
+## Parte C - Multicast
+
+### Pergunta 1
+
+Qual é a diferença entre enviar a mesma mensagem para 3 clientes usando unicast e enviar uma única vez via multicast?
+
+Resposta:
+
+No unicast, o servidor precisa enviar a mesma mensagem 3 vezes, uma para cada cliente. No multicast, o servidor envia somente uma vez para o grupo e todos os clientes inscritos recebem a mensagem. Assim, o multicast usa menos tráfego na rede.
+
+### Pergunta 2
+
+O que é o TTL e por que ele é importante?
+
+Resposta:
+
+O TTL define até onde o pacote multicast pode chegar na rede. Ele é importante para não deixar a mensagem passar por várias redes sem necessidade.
+
+### Pergunta 3
+
+Se um cliente ficar offline e voltar depois, ele recebe os avisos que perdeu? Por quê?
+
+Resposta:
+
+Não recebe. O multicast envia a mensagem somente naquele momento e não guarda os avisos antigos para enviar depois. Quando o cliente volta, ele recebe apenas os próximos avisos.
+
+### Evidências de teste
+
+#### Java
+
+Servidor:
+
+![Servidor Multicast em Java](evidencias/multicast/multicast-java-servidor.png)
+
+Cliente 1:
+
+![Cliente 1 Multicast em Java](evidencias/multicast/multicast-java-cliente-1.png)
+
+Cliente 2:
+
+![Cliente 2 Multicast em Java](evidencias/multicast/multicast-java-cliente-2.png)
+
+#### Python
+
+Servidor:
+
+![Servidor Multicast em Python](evidencias/multicast/multicast-python-servidor.png)
+
+Cliente 1:
+
+![Cliente 1 Multicast em Python](evidencias/multicast/multicast-python-cliente-1.png)
+
+Cliente 2:
+
+![Cliente 2 Multicast em Python](evidencias/multicast/multicast-python-cliente-2.png)
