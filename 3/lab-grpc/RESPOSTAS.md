@@ -78,3 +78,51 @@ Onde ficam definidas as operações ConsultarHorario e AcompanharAvisos nos arqu
 Resposta:
 
 No Java, elas aparecem na classe `CentralAtendimentoGrpc`, nos métodos `getConsultarHorarioMethod()` e `getAcompanharAvisosMethod()`. No Python, elas aparecem no arquivo `central_pb2_grpc.py`.
+
+## Parte 6 - RPC unário: ConsultarHorario
+
+### Pergunta 1
+
+Cite pelo menos três coisas que acontecem por baixo dos panos entre a chamada do cliente e a resposta do servidor.
+
+Resposta:
+
+Primeiro, o gRPC transforma a pergunta em dados para enviar pela rede. Depois, ele envia esses dados para o servidor usando HTTP/2. O servidor chama o método `ConsultarHorario`, cria a resposta e o gRPC envia essa resposta de volta para o cliente.
+
+### Pergunta 2
+
+Compare esta implementação com o ClienteTCP do laboratório anterior. Onde estava o equivalente a montar a mensagem e interpretar a resposta? Quem faz esse trabalho agora?
+
+Resposta:
+
+No TCP, o cliente montava a mensagem com texto e enviava usando o socket. Depois, ele precisava ler e interpretar a resposta recebida. Agora, o gRPC e os arquivos gerados pelo `central.proto` fazem esse trabalho automaticamente.
+
+### Pergunta 3
+
+O que aconteceu ao chamar ConsultarHorario com o servidor desligado?
+
+Resposta:
+
+Com o servidor desligado, o cliente mostrou erro de conexão recusada. No Java apareceu `UNAVAILABLE: Connection refused` e no Python apareceu `StatusCode.UNAVAILABLE`. Isso acontece porque não havia nenhum servidor ouvindo nas portas 50093 e 50103.
+
+### Evidências de teste
+
+#### Java
+
+Servidor ligado:
+
+![RPC unário em Java](evidencias/unario/unario-java.png)
+
+Servidor desligado:
+
+![Erro de conexão Java](evidencias/unario/unario-java-servidor-desligado.png)
+
+#### Python
+
+Servidor ligado:
+
+![RPC unário em Python](evidencias/unario/unario-python.png)
+
+Servidor desligado:
+
+![Erro de conexão Python](evidencias/unario/unario-python-servidor-desligado.png)
