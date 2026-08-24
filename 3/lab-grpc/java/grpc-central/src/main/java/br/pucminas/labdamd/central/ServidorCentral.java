@@ -1,10 +1,11 @@
 package br.pucminas.labdamd.central;
 
 import io.grpc.Server;
-import io.grpc.ServerBuilder;
+import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,7 +15,7 @@ public class ServidorCentral {
     public static void main(String[] args) throws IOException, InterruptedException {
         int porta = 50051 + OFFSET;
 
-        Server servidor = ServerBuilder.forPort(porta)
+        Server servidor = NettyServerBuilder.forAddress(new InetSocketAddress("127.0.0.1", porta))
                 .addService(new CentralAtendimentoImpl())
                 .build();
 
@@ -37,6 +38,25 @@ public class ServidorCentral {
 
             observador.onNext(resposta);
             observador.onCompleted();
+        }
+
+        @Override
+        public void acompanharAvisos(InscricaoAvisos pedido, StreamObserver<Aviso> observador) {
+            System.out.println("[gRPC] AcompanharAvisos: " + pedido.getNomeAluno() + " se inscreveu.");
+            try {
+                for (int i = 1; i <= 5; i++) {
+                    Aviso aviso = Aviso.newBuilder()
+                            .setNumero(i)
+                            .setTexto("Aviso #" + i + ": a aula começa em " + (5 - i) + " minuto(s)!")
+                            .build();
+                    observador.onNext(aviso);
+                    Thread.sleep(2000);
+                }
+                observador.onCompleted();
+            } catch (InterruptedException e) {
+                observador.onError(e);
+                Thread.currentThread().interrupt();
+            }
         }
     }
 }

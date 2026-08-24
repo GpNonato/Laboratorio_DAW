@@ -51,7 +51,7 @@ Não. Uma operação remota pode demorar mais ou falhar por causa da rede. Se is
 
 Resposta:
 
-Esta resposta será completada depois dos testes das Partes C e D.
+O cliente TCP exige pensar em rede, pois precisa criar socket, enviar dados e interpretar as mensagens. No gRPC, o cliente chama métodos como `ConsultarHorario` e `AcompanharAvisos`, sem montar as mensagens manualmente. Isso mostra a transparência de acesso.
 
 ## Parte 5 - Protocol Buffers e contrato do serviço
 
@@ -126,3 +126,39 @@ Servidor ligado:
 Servidor desligado:
 
 ![Erro de conexão Python](evidencias/unario/unario-python-servidor-desligado.png)
+
+## Parte 7 - RPC com streaming: AcompanharAvisos
+
+### Pergunta 1
+
+O que precisaria mudar para vários clientes gRPC receberem os mesmos avisos ao mesmo tempo?
+
+Resposta:
+
+O servidor precisaria guardar os clientes que estão inscritos no streaming. Quando criasse um aviso, ele teria que enviar esse mesmo aviso para cada cliente conectado.
+
+### Pergunta 2
+
+Compare o streaming em Java com o streaming em Python. Qual abordagem foi mais natural de entender?
+
+Resposta:
+
+Eu achei o Python mais natural de entender, pois o `yield` mostra de forma direta cada aviso sendo enviado. No Java, o `StreamObserver` faz a mesma coisa usando `onNext()`, mas tem mais código.
+
+### Pergunta 3
+
+O que aconteceria se o cliente fechasse a conexão no meio do envio dos avisos?
+
+Resposta:
+
+O cliente pararia de receber os avisos e o gRPC cancelaria aquela chamada. O servidor deveria perceber o cancelamento e parar de enviar os próximos avisos. No código atual, seria necessário adicionar uma verificação para interromper o laço assim que o cliente sair.
+
+### Evidências de teste
+
+#### Java
+
+![Streaming gRPC em Java](evidencias/streaming/streaming-java.png)
+
+#### Python
+
+![Streaming gRPC em Python](evidencias/streaming/streaming-python.png)
