@@ -162,3 +162,5 @@ O cliente pararia de receber os avisos e o gRPC cancelaria aquela chamada. O ser
 #### Python
 
 ![Streaming gRPC em Python](evidencias/streaming/streaming-python.png)
+
+Relatorio feito com apoio da ia para escrita e revisão.
