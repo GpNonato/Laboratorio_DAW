@@ -48,3 +48,33 @@ Não. Uma operação remota pode demorar mais ou falhar por causa da rede. Se is
 ### Pergunta 3
 
 (Responder depois de concluir as Partes C e D) Comparando o cliente TCP do laboratório anterior com o cliente gRPC que você vai construir agora: qual dos dois exige que você “pense em rede” (sockets, send/receive, parsing de string) e qual permite que você “pense no problema” (chamar uma função e receber um resultado)? A que tipo de transparência isso se relaciona?
+
+Resposta:
+
+Esta resposta será completada depois dos testes das Partes C e D.
+
+## Parte 5 - Protocol Buffers e contrato do serviço
+
+### Pergunta 1
+
+Qual a vantagem de ter o contrato explícito e gerado automaticamente em vez de combinado apenas “de boca”?
+
+Resposta:
+
+O arquivo `central.proto` deixa claro quais mensagens e operações existem. Assim, cliente e servidor seguem o mesmo padrão e fica mais difícil um lado enviar algo diferente do que o outro espera.
+
+### Pergunta 2
+
+O que o mesmo arquivo `central.proto` gerar código para Java e Python sugere?
+
+Resposta:
+
+Isso mostra que programas feitos em linguagens diferentes conseguem se comunicar. Os dois usam o mesmo contrato e o gRPC gera o código necessário para cada linguagem.
+
+### Pergunta 3
+
+Onde ficam definidas as operações ConsultarHorario e AcompanharAvisos nos arquivos gerados?
+
+Resposta:
+
+No Java, elas aparecem na classe `CentralAtendimentoGrpc`, nos métodos `getConsultarHorarioMethod()` e `getAcompanharAvisosMethod()`. No Python, elas aparecem no arquivo `central_pb2_grpc.py`.
