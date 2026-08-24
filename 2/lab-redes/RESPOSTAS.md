@@ -207,3 +207,6 @@ Cliente 1:
 Cliente 2:
 
 ![Cliente 2 WebSocket em Python](evidencias/websocket/websocket-python-cliente-2.png)
+
+
+Relatorio feito com apoio da ia para escrita e revisão.

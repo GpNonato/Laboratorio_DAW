@@ -33,5 +33,6 @@ public class MuralCliente {
             }
             socket.sendText(mensagem, true).join();
         }
+        teclado.close();
     }
 }
